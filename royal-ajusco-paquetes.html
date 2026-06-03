@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paquetes · Royal Ajusco</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:       #090810;
+  --dark-2:     #0f0e18;
+  --dark-3:     #15131f;
+  --dark-4:     #1c1a28;
+  --gold:       #C9A84C;
+  --gold-light: #e2c97e;
+  --gold-dim:   rgba(201,168,76,0.12);
+  --gold-border:rgba(201,168,76,0.28);
+  --white:      #F5F0E8;
+  --muted:      rgba(245,240,232,0.4);
+  --muted-2:    rgba(245,240,232,0.65);
+}
+
+body {
+  background: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--white);
+  min-height: 100vh;
+}
+
+/* ── AMBIENT ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 5%  80%, rgba(201,168,76,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 95% 20%, rgba(100,80,180,0.04) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.container {
+  position: relative; z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  margin-bottom: 52px;
+  animation: fadeDown 0.8s ease both;
+}
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.75;
+}
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5.5vw, 58px);
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+.title em { color: var(--gold); font-style: italic; }
+.subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* ── ORNAMENT ── */
+.ornament {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 44px;
+  opacity: 0.3;
+  animation: fadeDown 0.8s 0.15s ease both;
+}
+.orn-line { height: 1px; width: 72px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.orn-line.r { transform: scaleX(-1); }
+.orn-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+
+/* ── DAY SELECTOR ── */
+.day-selector-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 48px;
+  animation: fadeDown 0.8s 0.25s ease both;
+}
+.day-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.day-tabs {
+  display: flex;
+  background: var(--dark-2);
+  border: 1px solid rgba(245,240,232,0.07);
+  border-radius: 2px;
+  padding: 4px;
+  gap: 2px;
+}
+.day-tab {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  padding: 8px 18px;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.22s ease;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.day-tab:hover { color: var(--white); background: rgba(245,240,232,0.04); }
+.day-tab.active {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-border);
+}
+
+/* ── PAX SELECTOR ── */
+.pax-selector-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  margin-bottom: 52px;
+  animation: fadeDown 0.8s 0.3s ease both;
+}
+.pax-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pax-tabs {
+  display: flex;
+  background: var(--dark-2);
+  border: 1px solid rgba(245,240,232,0.07);
+  border-radius: 2px;
+  padding: 4px;
+  gap: 2px;
+}
+.pax-tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  padding: 7px 16px;
+  cursor: pointer;
+  border-radius: 1px;
+  transition: all 0.22s ease;
+}
+.pax-tab:hover { color: var(--white); background: rgba(245,240,232,0.04); }
+.pax-tab.active {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  border: 1px solid var(--gold-border);
+}
+
+/* ── CARDS ── */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+}
+
+.card {
+  background: var(--dark-2);
+  border: 1px solid rgba(245,240,232,0.07);
+  border-radius: 2px;
+  padding: 34px 26px 28px;
+  position: relative;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 0.65s ease both;
+  display: flex;
+  flex-direction: column;
+}
+.card:nth-child(1) { animation-delay: 0.12s; }
+.card:nth-child(2) { animation-delay: 0.24s; }
+.card:nth-child(3) { animation-delay: 0.38s; }
+
+.card:hover { transform: translateY(-5px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+
+.card.noble  { border-color: rgba(245,240,232,0.09); }
+.card.noble:hover { border-color: rgba(245,240,232,0.18); }
+
+.card.real   { border-color: var(--gold-border); }
+.card.real:hover { border-color: rgba(201,168,76,0.5); }
+
+.card.imperial {
+  background: var(--dark-3);
+  border-color: var(--gold);
+  border-width: 1.5px;
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.08), 0 16px 48px rgba(0,0,0,0.4);
+}
+.card.imperial:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 0 0 1px rgba(201,168,76,0.15), 0 28px 72px rgba(0,0,0,0.55);
+}
+.card.imperial::before {
+  content: '';
+  position: absolute;
+  top: -1.5px; left: 10%; right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 1px;
+  margin-bottom: 22px;
+  width: fit-content;
+}
+.badge-noble    { background: rgba(245,240,232,0.05); color: var(--muted); border: 1px solid rgba(245,240,232,0.1); }
+.badge-real     { background: var(--gold-dim); color: var(--gold); border: 1px solid var(--gold-border); }
+.badge-imperial { background: var(--gold); color: var(--dark); font-weight: 500; }
+
+/* tier */
+.tier-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+.card.imperial .tier-name { color: var(--gold-light); }
+
+.slogan {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.55;
+  margin-bottom: 24px;
+  min-height: 34px;
+}
+.card.imperial .slogan { color: rgba(226,201,126,0.55); }
+
+/* price block */
+.price-block {
+  display: flex; align-items: baseline; gap: 5px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(245,240,232,0.07);
+  margin-bottom: 6px;
+}
+.card.imperial .price-block { border-bottom-color: var(--gold-border); }
+
+.price-currency { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); }
+.price-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+.card.noble    .price-amount { color: rgba(245,240,232,0.75); }
+.card.real     .price-amount { color: var(--white); }
+.card.imperial .price-amount { color: var(--gold-light); }
+.price-unit { font-size: 10.5px; color: var(--muted); font-weight: 300; }
+
+.price-note {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 20px;
+  min-height: 16px;
+  transition: opacity 0.2s;
+}
+
+/* upgrade note */
+.upgrade-note {
+  font-size: 11px;
+  color: rgba(201,168,76,0.75);
+  font-style: italic;
+  padding: 8px 11px;
+  background: var(--gold-dim);
+  border-left: 1.5px solid var(--gold-border);
+  border-radius: 1px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+/* features */
+.features {
+  list-style: none;
+  flex: 1;
+  margin-bottom: 28px;
+}
+.feat-section {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.55;
+  padding: 14px 0 5px;
+  display: block;
+}
+.card.imperial .feat-section { opacity: 0.85; }
+
+.features li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12.5px;
+  color: var(--muted-2);
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(245,240,232,0.04);
+}
+.features li:last-child { border-bottom: none; }
+.card.imperial .features li { color: rgba(245,240,232,0.82); }
+
+.feat-dot {
+  flex-shrink: 0;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.4;
+  margin-top: 6px;
+}
+.card.imperial .feat-dot { opacity: 0.8; }
+
+/* CTA */
+.cta {
+  display: block; width: 100%;
+  padding: 13px;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 1px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  margin-top: auto;
+}
+.cta-noble {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(245,240,232,0.13);
+}
+.cta-noble:hover { background: rgba(245,240,232,0.05); color: var(--white); border-color: rgba(245,240,232,0.28); }
+
+.cta-real {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold-border);
+}
+.cta-real:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+.cta-imperial {
+  background: var(--gold);
+  color: var(--dark);
+  border: 1px solid var(--gold);
+  font-weight: 500;
+}
+.cta-imperial:hover { background: var(--gold-light); border-color: var(--gold-light); }
+
+/* footer */
+.footer-note {
+  text-align: center;
+  margin-top: 44px;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 300;
+  line-height: 1.7;
+  animation: fadeUp 0.7s 0.55s ease both;
+}
+.footer-note strong { color: var(--gold); font-weight: 400; }
+
+/* animations */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* price flash animation */
+.price-flash { animation: flash 0.35s ease; }
+@keyframes flash {
+  0%   { opacity: 1; }
+  30%  { opacity: 0.35; transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="eyebrow">Royal Ajusco · Picacho Ajusco 884</div>
+    <h1 class="title">Una celebración <em>diseñada para ti</em></h1>
+    <p class="subtitle">Tres experiencias diseñadas para que cada detalle esté exactamente donde debe estar.</p>
+  </div>
+
+  <div class="ornament">
+    <div class="orn-line"></div>
+    <div class="orn-diamond"></div>
+    <div class="orn-line r"></div>
+  </div>
+
+  <!-- DAY SELECTOR -->
+  <div class="day-selector-wrap">
+    <div class="day-label">Selecciona el día de tu evento</div>
+    <div class="day-tabs">
+      <button class="day-tab" data-day="lj">Lun – Jue</button>
+      <button class="day-tab active" data-day="dom">Domingo</button>
+      <button class="day-tab" data-day="vie">Viernes</button>
+      <button class="day-tab" data-day="sab">Sábado</button>
+    </div>
+  </div>
+
+  <!-- PAX SELECTOR -->
+  <div class="pax-selector-wrap">
+    <div class="pax-label">Número aproximado de invitados</div>
+    <div class="pax-tabs">
+      <button class="pax-tab" data-pax="80">80 – 99</button>
+      <button class="pax-tab" data-pax="100">100 – 149</button>
+      <button class="pax-tab active" data-pax="150">150 – 200</button>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards">
+
+    <!-- NOBLE -->
+    <div class="card noble">
+      <span class="badge badge-noble">Entrada</span>
+      <div class="tier-name">Noble</div>
+      <div class="slogan">"Todo lo esencial para una noche memorable"</div>
+      <div class="price-block">
+        <span class="price-currency">$</span>
+        <span class="price-amount" id="price-noble">589</span>
+        <span class="price-unit">por persona</span>
+      </div>
+      <div class="price-note" id="note-noble"></div>
+      <ul class="features">
+        <li class="feat-section">Infraestructura y ambientación</li>
+        <li><span class="feat-dot"></span>Mesas espejadas y sillas Tiffany</li>
+        <li><span class="feat-dot"></span>Montaje completo: vajilla fina, cubertería, vasos y copas de cristal</li>
+        <li><span class="feat-dot"></span>Centros de mesa sencillos y elegantes</li>
+        <li><span class="feat-dot"></span>Sistema de luces LED y sonido profesional montado</li>
+        <li class="feat-section">Banquete y bebidas</li>
+        <li><span class="feat-dot"></span>Menú A · 3 tiempos emplatados y servidos a las mesas</li>
+        <li><span class="feat-dot"></span>Refrescos de primera línea durante todo el servicio</li>
+        <li><span class="feat-dot"></span>Agua mineral e hielo ilimitado · sin cargo de descorche</li>
+        <li class="feat-section">Personal y servicio</li>
+        <li><span class="feat-dot"></span>Capitán de meseros y meseros capacitados</li>
+        <li><span class="feat-dot"></span>Equipo de cocina, parrillero y servicio de barra</li>
+        <li><span class="feat-dot"></span>DJ profesional en vivo · audio e iluminación operados en tiempo real</li>
+        <li><span class="feat-dot"></span>Personal de limpieza dedicado a sanitarios y áreas comunes</li>
+      </ul>
+      <a href="#" class="cta cta-noble">Agendar visita</a>
+    </div>
+
+    <!-- REAL -->
+    <div class="card real">
+      <span class="badge badge-real">Popular</span>
+      <div class="tier-name">Real</div>
+      <div class="slogan">"Una celebración digna de la corona"</div>
+      <div class="price-block">
+        <span class="price-currency">$</span>
+        <span class="price-amount" id="price-real">789</span>
+        <span class="price-unit">por persona</span>
+      </div>
+      <div class="price-note" id="note-real"></div>
+      <div class="upgrade-note">Todo lo del Noble, más:</div>
+      <ul class="features">
+        <li class="feat-section">Ambientación elevada</li>
+        <li><span class="feat-dot"></span>Máquina de humo para momentos clave (entrada o vals)</li>
+        <li><span class="feat-dot"></span>Pista de baile iluminada profesional</li>
+        <li><span class="feat-dot"></span>Upgrade de centros de mesa premium</li>
+        <li><span class="feat-dot"></span>Upgrade de iluminación y producción</li>
+        <li class="feat-section">Banquete y coctelería</li>
+        <li><span class="feat-dot"></span>Menú AA · cortes internacionales</li>
+        <li><span class="feat-dot"></span>Shots de bienvenida para todos los invitados</li>
+        <li><span class="feat-dot"></span>Accesorios para encender tu batucada</li>
+        <li class="feat-section">Experiencia y soporte</li>
+        <li><span class="feat-dot"></span>Coordinador de eventos dedicado</li>
+        <li><span class="feat-dot"></span>Degustación ampliada para 5 personas antes del evento</li>
+        <li><span class="feat-dot"></span>1 ensayo general en el salón</li>
+      </ul>
+      <a href="#" class="cta cta-real">Agendar visita</a>
+    </div>
+
+    <!-- IMPERIAL -->
+    <div class="card imperial">
+      <span class="badge badge-imperial">★ Recomendado</span>
+      <div class="tier-name">Imperial</div>
+      <div class="slogan">"Soberanía absoluta"</div>
+      <div class="price-block">
+        <span class="price-currency">$</span>
+        <span class="price-amount" id="price-imperial">1,009</span>
+        <span class="price-unit">por persona</span>
+      </div>
+      <div class="price-note" id="note-imperial"></div>
+      <div class="upgrade-note">Todo lo del Real, más la experiencia completa:</div>
+      <ul class="features">
+        <li class="feat-section">Banquete</li>
+        <li><span class="feat-dot"></span>Menú AAA · máxima categoría gastronómica</li>
+        <li class="feat-section">Espectáculo y producción</li>
+        <li><span class="feat-dot"></span>Maestro de ceremonias profesional</li>
+        <li><span class="feat-dot"></span>Cabina fotográfica · 2 h de servicio ilimitado</li>
+        <li><span class="feat-dot"></span>Letras iluminadas gigantes · 3 piezas</li>
+        <li><span class="feat-dot"></span>Pirotecnia fría para momentos especiales</li>
+        <li><span class="feat-dot"></span>Carrito de shots para acompañar la batucada</li>
+        <li class="feat-section">Detalles de lujo</li>
+        <li><span class="feat-dot"></span>Moët & Chandon Néctar Impérial · mesa de honor</li>
+        <li><span class="feat-dot"></span>Invitaciones digitales personalizadas</li>
+        <li><span class="feat-dot"></span>Gestión completa de proveedores (vendor management 100%)</li>
+        <li><span class="feat-dot"></span>Soporte VIP y plan de trabajo en conjunto</li>
+        <li><span class="feat-dot"></span>2 ensayos generales · acceso preferencial al salón</li>
+      </ul>
+      <a href="#" class="cta cta-imperial">Agendar visita</a>
+    </div>
+
+  </div>
+
+  <div class="footer-note">
+    Precios por persona · Mínimo 80 invitados · <strong>Agenda tu visita y te armamos una propuesta a la medida</strong>
+  </div>
+
+</div>
+
+<script>
+  // ── PRICING TABLE ──────────────────────────────────────────────
+  // Structure: prices[package][day][paxBucket]
+  // paxBuckets: 80 = 80-99, 100 = 100-149, 150 = 150-200
+  const prices = {
+    noble: {
+      lj:  { 80: 589,  100: 549,  150: 519  },
+      dom: { 80: 659,  100: 619,  150: 589  },
+      vie: { 80: 699,  100: 649,  150: 619  },
+      sab: { 80: 749,  100: 699,  150: 669  },
+    },
+    real: {
+      lj:  { 80: 789,  100: 749,  150: 719  },
+      dom: { 80: 859,  100: 819,  150: 789  },
+      vie: { 80: 899,  100: 849,  150: 819  },
+      sab: { 80: 949,  100: 899,  150: 869  },
+    },
+    imperial: {
+      lj:  { 80: 939,   100: 899,  150: 869  },
+      dom: { 80: 1009,  100: 969,  150: 939  },
+      vie: { 80: 1049,  100: 999,  150: 969  },
+      sab: { 80: 1099,  100: 1049, 150: 1019 },
+    },
+  };
+
+  const dayLabels = { lj: 'Lunes a Jueves', dom: 'Domingo', vie: 'Viernes', sab: 'Sábado' };
+  const paxLabels = { 80: '80–99 invitados', 100: '100–149 invitados', 150: '150–200 invitados' };
+
+  let activeDay = 'dom';
+  let activePax = 150;
+
+  function fmt(n) {
+    return n >= 1000 ? n.toLocaleString('es-MX') : String(n);
+  }
+
+  function flashEl(el) {
+    el.classList.remove('price-flash');
+    void el.offsetWidth; // reflow
+    el.classList.add('price-flash');
+  }
+
+  function updatePrices() {
+    ['noble', 'real', 'imperial'].forEach(pkg => {
+      const val = prices[pkg][activeDay][activePax];
+      const el = document.getElementById('price-' + pkg);
+      el.textContent = fmt(val);
+      flashEl(el);
+
+      // contextual note — weekend premium hint
+      const note = document.getElementById('note-' + pkg);
+      if (activeDay === 'sab') {
+        note.textContent = 'Precio de sábado';
+      } else if (activeDay === 'vie') {
+        note.textContent = 'Precio de viernes';
+      } else if (activeDay === 'dom') {
+        note.textContent = 'Precio de domingo';
+      } else if (activeDay === 'lj') {
+        note.textContent = 'Precio entre semana';
+      }
+    });
+  }
+
+  // Day tabs
+  document.querySelectorAll('.day-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeDay = btn.dataset.day;
+      updatePrices();
+    });
+  });
+
+  // Pax tabs
+  document.querySelectorAll('.pax-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pax-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activePax = parseInt(btn.dataset.pax);
+      updatePrices();
+    });
+  });
+
+  // Init
+  updatePrices();
+</script>
+</body>
+</html>
